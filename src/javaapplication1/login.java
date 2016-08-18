@@ -172,6 +172,7 @@ public class login extends javax.swing.JFrame {
                          JOptionPane.showMessageDialog(null, "erorr auth","worng pass",JOptionPane.ERROR_MESSAGE);
                          usernametextfield.setText(null);
                          passwrodtextfield.setText(null);
+                         usernametextfield.requestFocus();
                     }
                     
                 }
@@ -206,13 +207,8 @@ public class login extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-       
-//        picuser.setBounds(50, 50, 50, 50);
-//        ImageIcon icon = new ImageIcon(img); //image icon 
-//        Image im = (Image)picuser.getIcon(); //convert icon image to image
-//        Image newimg = im.getScaledInstance(picuser.getWidth(), picuser.getHeight(), Image.SCALE_FAST);
-//        picuser.setIcon(new ImageIcon(newimg));
-//        picuser.setIcon();
+        usernametextfield.requestFocus();
+
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
