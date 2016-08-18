@@ -366,18 +366,14 @@ public class PDF extends javax.swing.JFrame  {
             extractImages(sourcePDF);
             BufferedImage img = ImageIO.read(new ByteArrayInputStream(listener.getBimgArray()));
             displayimage.setBounds(100, 100, 200, 200);
-            try{
-                    data = pdfManager.ToText();
-
-            }catch(Exception e){
-                
-                JOptionPane.showMessageDialog(null, "please selecet OCR PDF","worng pass",JOptionPane.ERROR_MESSAGE);
-
-            }
             ImageIcon icon = new ImageIcon(img); //image icon 
             Image im = (Image)icon.getImage(); //convert icon image to image
             Image newimg = im.getScaledInstance(displayimage.getWidth(), displayimage.getHeight(), Image.SCALE_SMOOTH);
-            displayimage.setIcon(new ImageIcon(newimg));
+            if(!uploadpic.isSelected()){
+                
+                displayimage.setIcon(new ImageIcon(newimg));
+
+                }
             
             }               
         
