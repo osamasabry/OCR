@@ -70,8 +70,9 @@ public class PDFManager {
        // spilt 
        
        String[] result = Text.split("\n");
-                       
-                        Map<String, String> map = new HashMap<String, String>();          
+              Map<String, String> map = new HashMap<String, String>();          
+              
+                try{
                         for (int j = 0; j < result.length; j++)
                         {
                             
@@ -144,7 +145,13 @@ public class PDFManager {
                             }
                         }
         
-       return map;
+                }catch(Exception e){
+                    
+                   JOptionPane.showMessageDialog(null, "please selecet OCR PDF","worng pass",JOptionPane.ERROR_MESSAGE);
+ 
+                }
+            return map;
+         
    }
    
    

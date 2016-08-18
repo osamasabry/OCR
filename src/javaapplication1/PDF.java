@@ -49,24 +49,25 @@ import javax.swing.WindowConstants;
 import sun.misc.BASE64Encoder;
 
 
-public class PDF extends javax.swing.JFrame {
+public class PDF extends javax.swing.JFrame  {
         JFileChooser fileChooser = new JFileChooser();
         JFileChooser imgChooser = new JFileChooser();
         
 
         PDFManager pdfManager = new PDFManager();
+        Map<String, String> data = null;
+
         ImageRenderListener listener;
         
         // extractImages
         public void extractImages(String filename)
         throws IOException, DocumentException {
-        System.out.println("Processing PDF at " + filename);
+//        System.out.println("Processing PDF at " + filename);
         PdfReader reader = new PdfReader(filename);
         PdfReaderContentParser parser = new PdfReaderContentParser(reader);
         listener = new ImageRenderListener();           
         RenderListener print = parser.processContent(3, listener);
-        reader.close();
-       
+        reader.close();       
     }
         
         
@@ -199,16 +200,19 @@ public class PDF extends javax.swing.JFrame {
         fileLabel.setText(null);
         picLabel.setText(null);
         displayimage.setIcon(null);
+        data=null;
+        pdfManager.setFilePath(null);
+//        System.out.println(data);
 
     }//GEN-LAST:event_btn_ResetActionPerformed
 
     private void btn_SendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SendActionPerformed
         // TODO add your handling code here
         
-        try {
+        try { 
             // TODO add your handling code here:
             String s = null;
-            Map<String, String> data = pdfManager.ToText();
+            data = pdfManager.ToText();
             URL url = new URL("http://localhost/pdf.php");
             URLConnection con = url.openConnection();
             // activate the output
@@ -229,17 +233,23 @@ public class PDF extends javax.swing.JFrame {
                 byte[] pic = listener.getBimgArray();
                 s = new sun.misc.BASE64Encoder().encode(pic);
             }
-
-            ps.print("data:\n"+data+"img:\n"+s);
-            con.getInputStream();
-            DataInputStream inStream = new DataInputStream(con.getInputStream());
-            String buffer;
-            while((buffer = inStream.readLine()) != null) {
-                System.out.println(buffer);
-            }
-            ps.close();
-            JOptionPane.showMessageDialog(null, "Data Sent","",JOptionPane.INFORMATION_MESSAGE);
             
+            System.out.println(data);
+            if(s.isEmpty()|| data.isEmpty()){
+               JOptionPane.showMessageDialog(null, "data not found . please select OCR PDF Only ","",JOptionPane.INFORMATION_MESSAGE);
+                
+            }else{
+                
+                ps.print("data:\n"+data+"img:\n"+s);
+                con.getInputStream();
+                DataInputStream inStream = new DataInputStream(con.getInputStream());
+                String buffer;
+                while((buffer = inStream.readLine()) != null) {
+//                    System.out.println(buffer);
+                }
+                ps.close();
+                JOptionPane.showMessageDialog(null, "Data Sent","",JOptionPane.INFORMATION_MESSAGE);
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,10 +366,17 @@ public class PDF extends javax.swing.JFrame {
             extractImages(sourcePDF);
             BufferedImage img = ImageIO.read(new ByteArrayInputStream(listener.getBimgArray()));
             displayimage.setBounds(100, 100, 200, 200);
+            try{
+                    data = pdfManager.ToText();
+
+            }catch(Exception e){
+                
+                JOptionPane.showMessageDialog(null, "please selecet OCR PDF","worng pass",JOptionPane.ERROR_MESSAGE);
+
+            }
             ImageIcon icon = new ImageIcon(img); //image icon 
             Image im = (Image)icon.getImage(); //convert icon image to image
             Image newimg = im.getScaledInstance(displayimage.getWidth(), displayimage.getHeight(), Image.SCALE_SMOOTH);
-            
             displayimage.setIcon(new ImageIcon(newimg));
             
             }               
