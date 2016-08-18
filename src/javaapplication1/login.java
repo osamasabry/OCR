@@ -67,6 +67,11 @@ public class login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton1KeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("username");
 
@@ -173,7 +178,8 @@ public class login extends javax.swing.JFrame {
                 ps.close();
             }
             catch(Exception ex) {
-                System.out.println("Exception cought:\n"+ ex.toString());
+//                System.out.println("Exception cought:\n"+ ex.toString());
+                  JOptionPane.showMessageDialog(null, "connection faield","worng pass",JOptionPane.ERROR_MESSAGE);
                
             }
 
@@ -208,6 +214,14 @@ public class login extends javax.swing.JFrame {
 //        picuser.setIcon(new ImageIcon(newimg));
 //        picuser.setIcon();
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+//            System.out.println("Hello");
+            jButton1.doClick();
+        }
+    }//GEN-LAST:event_jButton1KeyPressed
 
     /**
      * @param args the command line arguments

@@ -52,7 +52,7 @@ import sun.misc.BASE64Encoder;
 public class PDF extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         JFileChooser imgChooser = new JFileChooser();
-        String s = null;
+        
 
         PDFManager pdfManager = new PDFManager();
         ImageRenderListener listener;
@@ -207,7 +207,7 @@ public class PDF extends javax.swing.JFrame {
         
         try {
             // TODO add your handling code here:
-
+            String s = null;
             Map<String, String> data = pdfManager.ToText();
             URL url = new URL("http://localhost/pdf.php");
             URLConnection con = url.openConnection();
@@ -238,6 +238,8 @@ public class PDF extends javax.swing.JFrame {
                 System.out.println(buffer);
             }
             ps.close();
+            JOptionPane.showMessageDialog(null, "Data Sent","",JOptionPane.INFORMATION_MESSAGE);
+            
 
         } catch (Exception ex) {
             Logger.getLogger(PDF.class.getName()).log(Level.SEVERE, null, ex);
@@ -250,7 +252,7 @@ public class PDF extends javax.swing.JFrame {
 
     private void btn_FinashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FinashActionPerformed
         // TODO add your handling code here:
-        System.out.println("osama");
+//        System.out.println("osama");
         System.exit(1);
     }//GEN-LAST:event_btn_FinashActionPerformed
 
